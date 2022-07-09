@@ -31,7 +31,7 @@ app.post('/geturlyt', (req, res) => {
             res.send({ "video_id": video_id })
 
             ytdl(`https://www.youtube.com/watch?v=${video_id}`)
-                .pipe(createWriteStream(`file/${video_id}.${format}`))
+                .pipe(createWriteStream(`${video_id}.${format}`))
                 .on("finish", () => {
                     console.log("\nFinished!");
                     rl.close();
@@ -45,7 +45,7 @@ app.post('/geturlyt', (req, res) => {
         res.send({ "video_id": video_id })
 
         ytdl(`https://www.youtube.com/watch?v=${video_id}`)
-            .pipe(createWriteStream(`file/${video_id}.${format}`))
+            .pipe(createWriteStream(`${video_id}.${format}`))
             .on("finish", () => {
                 console.log("\nFinished!");
                 rl.close();
@@ -53,7 +53,7 @@ app.post('/geturlyt', (req, res) => {
     } else {
         res.send(video)
         ytdl(`https://www.youtube.com/watch?v=${video}`)
-            .pipe(createWriteStream(`file/${video}.${format}`))
+            .pipe(createWriteStream(`${video}.${format}`))
             .on("finish", () => {
                 console.log("\nFinished!");
                 rl.close();
@@ -61,7 +61,7 @@ app.post('/geturlyt', (req, res) => {
     };
 })
 app.get("/getvideo/:id", (req, res) => {
-    const path = 'file/'+req.params.id+".mp4";
+    const path = req.params.id+".mp4";
 
     fs.stat(path, (err, stat) => {
 
